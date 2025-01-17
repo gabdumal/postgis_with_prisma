@@ -1,0 +1,27 @@
+{
+  "author": "",
+  "dependencies": {
+    "@prisma/client": "6.0.1"
+  },
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "prisma": "6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "hello-prisma",
+  "pnpm.onlyBuiltDependencies": [
+    "@prisma/client",
+    "@prisma/engines",
+    "esbuild",
+    "prisma"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}
