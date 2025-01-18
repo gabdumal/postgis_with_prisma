@@ -25,6 +25,7 @@ export default tseslint.config(
     rules: {
       "no-console": "off",
       "one-var": "off",
+      "@typescript-eslint/no-redundant-type-constituents": "off",
     },
   },
 

@@ -1,47 +1,14 @@
-import { PrismaClient } from "@prisma/client";
-
-interface MyPoint {
-  latitude: number;
-  longitude: number;
-}
-
-interface MyPointOfInterest {
-  name: string;
-  location: MyPoint;
-}
-
-const prisma = new PrismaClient().$extends({
-  model: {
-    pointOfInterest: {
-      async create(data: {
-        name: string;
-        latitude: number;
-        longitude: number;
-      }) {
-        // Create an object using the custom types from above
-        const poi: MyPointOfInterest = {
-          location: {
-            latitude: data.latitude,
-            longitude: data.longitude,
-          },
-          name: data.name,
-        };
-
-        // Insert the object into the database
-        const point = `POINT(${poi.location.longitude} ${poi.location.latitude})`;
-        await prisma.$queryRaw`
-            INSERT INTO "PointOfInterest" (name, location) VALUES (${poi.name}, ST_GeomFromText(${point}, 4326));
-          `;
-
-        // Return the object
-        return poi;
-      },
-    },
-  },
-});
+import { prisma } from "./prisma.js";
 
 const main = async () => {
-  console.log(import.meta.url);
+  //   await prisma.pointOfInterest.create({
+  //     name: "Statue of Liberty",
+  //     latitude: 40.6892,
+  //     longitude: -74.0445,
+  //   });
+
+  const pois = await prisma.pointOfInterest.findClosestPoints(0, 0);
+  console.log(pois);
 };
 
 main()
