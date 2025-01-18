@@ -1,29 +1,44 @@
 {
-  "author": "",
+  "author": "Gabriel Malosto",
   "dependencies": {
     "@prisma/client": "6.0.1"
   },
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@ts-safeql/eslint-plugin": "^3.6.6",
     "@types/node": "^22.10.7",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.18.0",
+    "libpg-query": "^16.3.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "prisma": "6.0.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
   },
   "keywords": [],
-  "license": "ISC",
-  "main": "index.js",
+  "license": "AGPL-3.0-only",
+  "main": "src/index.ts",
   "name": "hello-prisma",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@prisma/client",
       "@prisma/engines",
       "esbuild",
+      "libpg-query",
       "prisma"
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild src/index.ts --bundle --packages=external --platform=node --format=esm --outdir=dist --sourcemap",
+    "dev": "tsx watch src/index.ts",
+    "format": "pnpm exec prettier . -w",
+    "lint": "pnpm exec eslint . --fix",
+    "preview": "pnpm run build && node dist/index.js",
+    "typecheck": "pnpm exec tsc"
   },
+  "type": "module",
   "version": "1.0.0"
 }
