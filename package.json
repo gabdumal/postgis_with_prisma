@@ -1,7 +1,8 @@
 {
   "author": "Gabriel Malosto",
   "dependencies": {
-    "@prisma/client": "6.0.1"
+    "@prisma/client": "6.0.1",
+    "dotenv": "^16.4.7"
   },
   "description": "",
   "devDependencies": {
@@ -10,6 +11,7 @@
     "@types/node": "^22.10.7",
     "esbuild": "^0.24.2",
     "eslint": "^9.18.0",
+    "globals": "^15.14.0",
     "libpg-query": "^16.3.0",
     "prettier": "^3.4.2",
     "prettier-plugin-organize-imports": "^4.1.0",
