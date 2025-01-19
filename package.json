@@ -2,6 +2,7 @@
   "author": "Gabriel Malosto",
   "dependencies": {
     "@prisma/client": "6.0.1",
+    "canvas": "^3.0.1",
     "dotenv": "^16.4.7"
   },
   "description": "",
@@ -29,6 +30,7 @@
     "onlyBuiltDependencies": [
       "@prisma/client",
       "@prisma/engines",
+      "canvas",
       "esbuild",
       "libpg-query",
       "prisma"

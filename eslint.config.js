@@ -49,6 +49,7 @@ export default tseslint.config(
       ],
       "no-console": "off",
       "one-var": "off",
+      "perfectionist/sort-imports": "off",
     },
   },
 );
