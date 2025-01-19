@@ -1,5 +1,5 @@
-import Park from "./objects/Park.js";
-import { prisma } from "./prisma.js";
+import Park from "./test/Park.js";
+import { prisma } from "./prisma/prisma.js";
 
 const main = async () => {
   //   await PointOfInterest.create();

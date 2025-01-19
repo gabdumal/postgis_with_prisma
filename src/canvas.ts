@@ -4,8 +4,6 @@ import { Polygon } from "./types.js";
 
 const canvas = createCanvas(1000, 1000, "svg");
 const ctx = canvas.getContext("2d");
-ctx.fillStyle = "darkseagreen";
-ctx.strokeStyle = "forestgreen";
 ctx.lineWidth = 8;
 
 export const exportCanvas = (name: string) => {
@@ -20,9 +18,13 @@ export const exportCanvas = (name: string) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
-export const drawPolygon = (polygon: Polygon, closePath = true) => {
-  ctx.beginPath();
+export const drawPolygon = (polygon: Polygon) => {
+  const hueColor = Math.floor(Math.random() * 360);
+  const hueInvertedColor = (hueColor + 180) % 360;
+
   polygon.forEach(ring => {
+    ctx.beginPath();
+
     ring.forEach((point, i) => {
       if (i === 0) {
         ctx.moveTo(point.longitude, point.latitude);
@@ -30,11 +32,15 @@ export const drawPolygon = (polygon: Polygon, closePath = true) => {
         ctx.lineTo(point.longitude, point.latitude);
       }
     });
-  });
 
-  if (closePath) {
     ctx.closePath();
-  }
-  ctx.stroke();
-  ctx.fill();
+
+    ctx.strokeStyle = `hsl(${hueInvertedColor}, 100%, 50%)`;
+    ctx.stroke();
+    ctx.strokeStyle = "transparent";
+
+    ctx.fillStyle = `hsla(${hueColor}, 100%, 50%, 100%)`;
+    ctx.fill();
+    ctx.fillStyle = "transparent";
+  });
 };

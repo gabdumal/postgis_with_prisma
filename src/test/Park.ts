@@ -12,6 +12,13 @@ const create = () => {
         { latitude: 900, longitude: 100 },
         { latitude: 100, longitude: 100 },
       ],
+      [
+        { latitude: 200, longitude: 200 },
+        { latitude: 200, longitude: 800 },
+        { latitude: 800, longitude: 800 },
+        { latitude: 800, longitude: 200 },
+        { latitude: 200, longitude: 200 },
+      ],
     ],
   };
   drawPolygon(park.shape);

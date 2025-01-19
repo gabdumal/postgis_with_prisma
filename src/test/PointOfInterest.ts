@@ -1,4 +1,4 @@
-import { prisma } from "../prisma.js";
+import { prisma } from "../prisma/prisma.js";
 
 const create = async () => {
   const pointOfInterest = await prisma.pointOfInterest.create({
