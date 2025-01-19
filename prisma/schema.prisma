@@ -11,7 +11,7 @@ datasource db {
 }
 
 model PointOfInterest {
-    id       Int                                   @id @default(autoincrement())
+    id       Int                                  @id @default(autoincrement())
     name     String
-    location Unsupported("geography(Point, 4326)")
+    location Unsupported("Geometry(Point, 4326)")
 }

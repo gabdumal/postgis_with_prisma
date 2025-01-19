@@ -1,7 +1,7 @@
-import "dotenv/config";
-
 import eslint from "@eslint/js";
 import safeql from "@ts-safeql/eslint-plugin/config";
+import "dotenv/config";
+import perfectionist from "eslint-plugin-perfectionist";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -9,8 +9,10 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   eslint.configs.recommended,
 
-  tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+
+  perfectionist.configs["recommended-natural"],
 
   safeql.configs.connections({
     // read more about configuration in the next section
@@ -22,19 +24,11 @@ export default tseslint.config(
   }),
 
   {
-    rules: {
-      "no-console": "off",
-      "one-var": "off",
-      "@typescript-eslint/no-redundant-type-constituents": "off",
-    },
-  },
-
-  {
     languageOptions: {
       globals: globals.node,
       parserOptions: {
-        projectService: true,
         project: "./tsconfig.json",
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -42,5 +36,19 @@ export default tseslint.config(
 
   {
     ignores: ["**/node_modules/**", "**/dist/**"],
+  },
+
+  {
+    rules: {
+      "@typescript-eslint/no-redundant-type-constituents": "off",
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        {
+          allowNumber: true,
+        },
+      ],
+      "no-console": "off",
+      "one-var": "off",
+    },
   },
 );

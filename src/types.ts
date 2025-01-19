@@ -1,9 +1,9 @@
-export interface MyPoint {
+export interface Point {
   latitude: number;
   longitude: number;
 }
 
-export interface MyPointOfInterest {
+export interface PointOfInterest {
+  location: Point;
   name: string;
-  location: MyPoint;
 }
