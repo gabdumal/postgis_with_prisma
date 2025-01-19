@@ -39,4 +39,9 @@ const create = async () => {
   });
 };
 
-export default { create };
+const findMany = async () => {
+  const parks = await prisma.park.findMany();
+  console.log(JSON.stringify(parks, null, 2));
+};
+
+export default { create, findMany };

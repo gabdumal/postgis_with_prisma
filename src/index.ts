@@ -4,7 +4,8 @@ import Park from "./test/Park.js";
 const main = async () => {
   //   await PointOfInterest.create();
   //   await PointOfInterest.findClosestPoints();
-  await Park.create();
+  //   await Park.create();
+  await Park.findMany();
 };
 
 main()
