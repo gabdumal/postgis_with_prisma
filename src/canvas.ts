@@ -2,9 +2,25 @@ import { createCanvas } from "canvas";
 import fs from "fs";
 import { Polygon } from "./types.js";
 
-const canvas = createCanvas(1000, 1000, "svg");
+const canvas = createCanvas(200, 200, "svg");
 const ctx = canvas.getContext("2d");
-ctx.lineWidth = 8;
+ctx.lineWidth = 2;
+
+const normalizeCoordinate = (
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  },
+  system = {
+    horizontalOffset: -100,
+    verticalOffset: -100,
+  },
+) => {
+  return {
+    latitude: coordinate.latitude - system.verticalOffset,
+    longitude: coordinate.longitude - system.horizontalOffset,
+  };
+};
 
 export const exportCanvas = (name: string) => {
   fs.writeFile(
@@ -26,21 +42,22 @@ export const drawPolygon = (polygon: Polygon) => {
     ctx.beginPath();
 
     ring.forEach((point, i) => {
+      const normalizedPoint = normalizeCoordinate(point);
       if (i === 0) {
-        ctx.moveTo(point.longitude, point.latitude);
+        ctx.moveTo(normalizedPoint.longitude, normalizedPoint.latitude);
       } else {
-        ctx.lineTo(point.longitude, point.latitude);
+        ctx.lineTo(normalizedPoint.longitude, normalizedPoint.latitude);
       }
     });
 
     ctx.closePath();
 
-    ctx.strokeStyle = `hsl(${hueInvertedColor}, 100%, 50%)`;
-    ctx.stroke();
-    ctx.strokeStyle = "transparent";
-
     ctx.fillStyle = `hsla(${hueColor}, 100%, 50%, 100%)`;
     ctx.fill();
     ctx.fillStyle = "transparent";
+
+    ctx.strokeStyle = `hsl(${hueInvertedColor}, 100%, 50%)`;
+    ctx.stroke();
+    ctx.strokeStyle = "transparent";
   });
 };

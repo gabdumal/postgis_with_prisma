@@ -1,6 +1,6 @@
 export interface Park {
+  area: Polygon;
   name: string;
-  shape: Polygon;
 }
 
 export interface Point {

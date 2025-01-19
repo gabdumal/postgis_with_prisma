@@ -1,10 +1,10 @@
-import Park from "./test/Park.js";
 import { prisma } from "./prisma/prisma.js";
+import Park from "./test/Park.js";
 
 const main = async () => {
   //   await PointOfInterest.create();
   //   await PointOfInterest.findClosestPoints();
-  Park.create();
+  await Park.create();
 };
 
 main()

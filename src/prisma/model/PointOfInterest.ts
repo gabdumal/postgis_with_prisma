@@ -54,7 +54,7 @@ const findClosestPoints = async (latitude: number, longitude: number) => {
   return pointsOfInterest;
 };
 
-export const pointOfInterest = {
+export default {
   create,
   findClosestPoints,
 };

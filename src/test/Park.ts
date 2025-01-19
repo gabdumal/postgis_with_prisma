@@ -1,28 +1,42 @@
 import { drawPolygon, exportCanvas } from "../canvas.js";
-import { Park } from "../types.js";
+import prismaPark from "../prisma/model/Park.js";
+import { prisma } from "../prisma/prisma.js";
 
-const create = () => {
-  const park: Park = {
-    name: "Ibirapuera",
-    shape: [
+const create = async () => {
+  const park = await prisma.park.create({
+    area: [
       [
-        { latitude: 100, longitude: 100 },
-        { latitude: 100, longitude: 900 },
-        { latitude: 900, longitude: 900 },
-        { latitude: 900, longitude: 100 },
-        { latitude: 100, longitude: 100 },
+        { latitude: -100, longitude: -100 },
+        { latitude: -100, longitude: 0 },
+        { latitude: 0, longitude: 0 },
+        { latitude: 0, longitude: -100 },
+        { latitude: -100, longitude: -100 },
       ],
       [
-        { latitude: 200, longitude: 200 },
-        { latitude: 200, longitude: 800 },
-        { latitude: 800, longitude: 800 },
-        { latitude: 800, longitude: 200 },
-        { latitude: 200, longitude: 200 },
+        { latitude: -70, longitude: -70 },
+        { latitude: -70, longitude: 90 },
+        { latitude: 90, longitude: 90 },
+        { latitude: 90, longitude: -70 },
+        { latitude: -70, longitude: -70 },
+      ],
+      [
+        { latitude: -50, longitude: -50 },
+        { latitude: -50, longitude: 70 },
+        { latitude: 70, longitude: 70 },
+        { latitude: 70, longitude: -50 },
+        { latitude: -50, longitude: -50 },
       ],
     ],
-  };
-  drawPolygon(park.shape);
+    name: "Ibirapuera",
+  });
+
+  drawPolygon(park.area);
   exportCanvas(park.name);
+
+  await prismaPark.create({
+    area: park.area,
+    name: park.name,
+  });
 };
 
 export default { create };

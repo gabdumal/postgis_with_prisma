@@ -1,20 +1,33 @@
 import { Park } from "../../types.js";
+import { prisma } from "../prisma.js";
 
-const create = async (data: { name: string }) => {
-  // Create an object using the custom types from above
+const create = async (data: {
+  area: {
+    latitude: number;
+    longitude: number;
+  }[][];
+  name: string;
+}) => {
   const park: Park = {
+    area: data.area,
     name: data.name,
   };
 
-  const shape = `POLYGON(${park.shape
-    .map(point => point.map(p => `${p.longitude} ${p.latitude}`).join(","))
-    .join(",")})`;
+  const area = `POLYGON(${park.area
+    .map(path => {
+      return `(${path
+        .map(point => `${point.longitude} ${point.latitude}`)
+        .join(", ")})`;
+    })
+    .join(", ")})`;
 
-  // Insert the object into the database
   await prisma.$queryRaw`
-        INSERT INTO "Park" (name, shape) VALUES (${park.name}, ST_GeomFromText(${point}, 4326));
-      `;
+          INSERT INTO "Park" (name, area) VALUES (${park.name}, ST_GeomFromText(${area}, 4326));
+        `;
 
-  // Return the object
-  return pointOfInterest;
+  return park;
+};
+
+export default {
+  create,
 };

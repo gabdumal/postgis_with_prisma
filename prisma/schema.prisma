@@ -16,7 +16,7 @@ model PointOfInterest {
     location Unsupported("Geometry(Point, 4326)")
 }
 
-model Square {
+model Park {
     id   Int                                    @id @default(autoincrement())
     name String
     area Unsupported("Geometry(Polygon, 4326)")
