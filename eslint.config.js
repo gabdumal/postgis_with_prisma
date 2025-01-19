@@ -40,6 +40,7 @@ export default tseslint.config(
 
   {
     rules: {
+      "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-redundant-type-constituents": "off",
       "@typescript-eslint/restrict-template-expressions": [
         "error",

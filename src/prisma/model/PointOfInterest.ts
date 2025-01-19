@@ -5,7 +5,7 @@ const create = async (data: {
   latitude: number;
   longitude: number;
   name: string;
-}) => {
+}): Promise<PointOfInterest & { id: number }> => {
   // Create an object using the custom types from above
   const pointOfInterest: PointOfInterest = {
     location: {
@@ -18,15 +18,22 @@ const create = async (data: {
   const point = `POINT(${pointOfInterest.location.longitude} ${pointOfInterest.location.latitude})`;
 
   // Insert the object into the database
-  await prisma.$queryRaw`
-        INSERT INTO "PointOfInterest" (name, location) VALUES (${pointOfInterest.name}, ST_GeomFromText(${point}, 4326));
-      `;
+  const id = await prisma.$queryRaw<{ id: number }[]>`
+  INSERT INTO "PointOfInterest" (name, location)
+    VALUES (${pointOfInterest.name}, ST_GeomFromText(${point}, 4326))
+    RETURNING id;`;
 
   // Return the object
-  return pointOfInterest;
+  return {
+    id: id[0].id,
+    ...pointOfInterest,
+  };
 };
 
-const findClosestPoints = async (latitude: number, longitude: number) => {
+const findClosestPoints = async (
+  latitude: number,
+  longitude: number,
+): Promise<(PointOfInterest & { id: number })[]> => {
   // Query for closest points of interests
   const result = await prisma.$queryRaw<
     {
@@ -40,8 +47,9 @@ const findClosestPoints = async (latitude: number, longitude: number) => {
         ORDER BY ST_DistanceSphere(location::geometry, ST_MakePoint(${longitude}, ${latitude})) DESC`;
 
   // Transform to our custom type
-  const pointsOfInterest: PointOfInterest[] = result.map(data => {
+  const pointsOfInterest = result.map(data => {
     return {
+      id: data.id,
       location: {
         latitude: (data.st_x as number) || 0,
         longitude: (data.st_y as number) || 0,

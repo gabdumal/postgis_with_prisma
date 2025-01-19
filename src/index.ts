@@ -1,11 +1,12 @@
 import { prisma } from "./prisma/prisma.js";
 import Park from "./test/Park.js";
 
-const main = async () => {
+const main = async (): Promise<void> => {
   //   await PointOfInterest.create();
   //   await PointOfInterest.findClosestPoints();
   //   await Park.create();
-  await Park.findMany();
+  //   await Park.findMany();
+  await Park.findUnique();
 };
 
 main()

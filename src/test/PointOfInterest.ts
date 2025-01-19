@@ -1,6 +1,6 @@
 import { prisma } from "../prisma/prisma.js";
 
-const create = async () => {
+const create = async (): Promise<void> => {
   const pointOfInterest = await prisma.pointOfInterest.create({
     latitude: 40.6892,
     longitude: -74.0445,
@@ -9,7 +9,7 @@ const create = async () => {
   console.log(pointOfInterest);
 };
 
-const findClosestPoints = async () => {
+const findClosestPoints = async (): Promise<void> => {
   const pointsOfInterest = await prisma.pointOfInterest.findClosestPoints(0, 0);
   console.log(pointsOfInterest);
 };
