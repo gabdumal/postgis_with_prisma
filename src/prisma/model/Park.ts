@@ -18,9 +18,7 @@ const create = async (data: {
     })
     .join(", ")})`;
 
-  const id = await prisma.$queryRaw<
-    { id: null | number }[]
-  >`INSERT INTO "Park" (name, area) VALUES (${park.name}, ST_GeomFromText(${area}, 4326)) RETURNING id;`;
+  const id = await prisma.$queryRaw<{ id: number }[]>`INSERT INTO "Park" (name, area) VALUES (${park.name}, ST_GeomFromText(${area}, 4326)) RETURNING id;`;
 
   if (!id[0].id) {
     throw new Error("Failed to create park");

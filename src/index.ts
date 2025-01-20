@@ -5,8 +5,8 @@ const main = async (): Promise<void> => {
   //   await PointOfInterest.create();
   //   await PointOfInterest.findClosestPoints();
   //   await Park.create();
-  //   await Park.findMany();
-  await Park.findUnique();
+  await Park.findMany();
+  //   await Park.findUnique();
 };
 
 main()

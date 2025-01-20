@@ -1,5 +1,4 @@
 import { drawPolygon, exportCanvas } from "../canvas.js";
-import prismaPark from "../prisma/model/Park.js";
 import { prisma } from "../prisma/prisma.js";
 
 const create = async (): Promise<void> => {
@@ -33,10 +32,7 @@ const create = async (): Promise<void> => {
   drawPolygon(park.area);
   exportCanvas(park.name);
 
-  await prismaPark.create({
-    area: park.area,
-    name: park.name,
-  });
+  console.log(JSON.stringify(park, null, 2));
 };
 
 const findMany = async (): Promise<void> => {
